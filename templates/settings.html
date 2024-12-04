@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Bootstrap CSS -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+        
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+        <link href="{{ url_for('static',filename='css/settings.css') }}" rel="stylesheet" />
+        
+        <title>E-ndicator</title>
+        <title>E-ndicator</title>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script type="text/javascript">
+        var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        
+        
+        </script>
+
+
+        <script type="text/javascript">
+            var intervalID = setInterval(update_values,1000);
+            
+              function update_values() {
+                    $.getJSON($SCRIPT_ROOT + '/{{ username }}/chartpage/data',
+              
+                  function(data) {
+                    $('#result').text(data.result);
+                    $('#result2').text(data.result2);
+                    $('#result3').text(data.result3);
+                    $('#result4').text(data.result4);
+                    $('#result5').text(data.result5);
+                    $('#result6').text(data.result6);
+                    $('#result7').text(data.result7);
+                    $('#result8').text(data.result8);
+                    $('#result9').text(data.result9);
+                    $('#result10').text(data.result10);
+                    console.log(data)
+                  });
+                  
+                };
+               
+                
+                
+                function stopTextColor() {
+                  clearInterval(intervalID);
+                }
+          
+          </script>
+
+    </head>
+    <body onload="update_values();">
+
+
+
+
+
+        <div class="container">
+            
+            <div class="header">
+              <image class="logo" src ="{{ url_for('static',filename='images/Logo.png') }}">
+                <h1>SETTINGS PAGE</h1>
+            </div>
+
+            <form action="/{{ username }}/settings_update" method="post">
+            <div class="parameters custom-scrollbar-css p-2">
+              
+              <div class="vbox-1">
+                <p class="label-1">TYPE:</p>
+                <select id="type_forms" class="dropbox-2" name="type_forms">
+                  {% if battery_type == "Lead Acid" %}
+                  <option value="Lithium">Lithium</option>
+                  <option value="Lead Acid" selected>Lead Acid</option>  
+                  {% else %}
+                  <option value="Lithium" selected>Lithium</option>
+                  <option value="Lead Acid">Lead Acid</option>  
+                  {% endif %}
+
+                </select>
+              </div>
+
+              <div class="vbox-2">
+                <p class="label-2">VOLTS:</p>
+                <select id="volts_forms" class="dropbox-2" name="volts_forms">
+                  {% if battery_voltage == "12" %}
+                  <option value="12" selected>12V</option>
+                  {% else %}
+                  <option value="12">12V</option>
+                  {% endif %}
+                  {% if battery_voltage == "24" %}
+                  <option value="24" selected>24V</option>
+                  {% else %}
+                  <option value="24">24V</option>
+                  {% endif %}
+
+                  {% if battery_voltage == "36" %}
+                  <option value="36" selected>36V</option>
+                  {% else %}
+                  <option value="36">36V</option>
+                  {% endif %}
+
+
+                  {% if battery_voltage == "48" %}
+                  <option value="48" selected>48V</option>
+                  {% else %}
+                  <option value="48">48V</option>
+                  {% endif %}
+
+                  {% if battery_voltage == "60" %}
+                  <option value="60" selected>60V</option>
+                  {% else %}
+                  <option value="60">60V</option>
+                  {% endif %}
+
+
+                </select>
+                
+
+              </div>
+
+              <div class="vbox-1">
+                <p class="label-1">CAPACITY:</p>
+                <p class="value-1">Ah</p>
+                <input type="text" id="capacity_forms" class="input-box" value={{battery_capacity}} name="capacity_forms">
+              </div>
+
+              <div class="vbox-2">
+                <p class="label-2">BRAND:</p>
+                <input type="text" id="brand_forms" class="input-box-2" value={{battery_model}} name="brand_forms">
+              </div>
+
+
+              <input type="submit" value="SUBMIT" class="submit-box btn btn-success">
+
+              
+            
+            </div>
+          </form>
+
+
+            <form action="/{{ username }}/dashboarddirect" method="post">
+            <div class="navigation">
+              <button  type="submit" class="home-icon">
+                <image class="home-icon" src ="{{ url_for('static',filename='images/home_icon.svg') }}">
+              </button>
+            </form>
+            
+            <form action="/{{ username }}/settingsdirect" method="post">
+              <button  class="settings-icon" type="submit">
+                <image class="settings-icon" src ="{{ url_for('static',filename='images/settings_icon.svg') }}"> 
+                </button>
+            </form>
+              
+            <form action="/{{ username }}/chartdirect" method="post">
+              <button  class="chart-icon" type="submit">
+                <image class="chart-icon" src ="{{ url_for('static',filename='images/chart_icon.svg') }}">
+              </button>
+            </form>
+              
+              
+             
+              
+            </div>
+        </div>
+
+        <script>
+            document.getElementById("result").innerHTML;
+            document.getElementById("result2").innerHTML;
+            document.getElementById("result3").innerHTML;
+            document.getElementById("result4").innerHTML;
+            document.getElementById("result5").innerHTML;
+            document.getElementById("result6").innerHTML;
+            document.getElementById("result7").innerHTML;
+            document.getElementById("result8").innerHTML;
+            document.getElementById("result9").innerHTML;
+            document.getElementById("result10").innerHTML;
+        </script>
+
+    </body>
+</html>

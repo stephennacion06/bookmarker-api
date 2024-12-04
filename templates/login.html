@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+        <link href="static/css/login.css" rel="stylesheet" />
+        <title>E-NDICATOR</title><link href="static/css/login.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    </head>
+    <body>
+    <div class="container">
+        <div class="v1_119"></div>
+        <div class="v1_120"></div>
+        <div class="v1_122"></div>
+        <!-- FORM -->
+        <form action="{{ url_for('login_page.login_post') }}" method="post">
+        <div class="v1_123"></div>
+        <input  class="password_box" type="password" name="password" placeholder="Password" >
+        <input  class="username_box"  name="username"  placeholder="Username">
+        <div class="v1_132">
+        <input class="v1_133" type="submit" value="">
+        </div>
+        <span class="v1_129">LOGIN</span>
+        </form>
+        <!-- FORM -->
+        <img class="v1_130" src ="static\images\Logo.png"></div>
+    </div>
+</body></html>

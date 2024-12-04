@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Bootstrap CSS -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+        <link href="{{ url_for('static',filename='css/chart.css') }}" rel="stylesheet" />
+
+        <title>E-ndicator</title>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+        <script type="text/javascript">
+          
+        var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        
+        </script>
+
+
+        <script type="text/javascript">
+            var intervalID = setInterval(update_values,1000);
+              function update_values() {
+                    $.getJSON($SCRIPT_ROOT + '/{{ username }}/chart/data',
+              
+                  function(data) {
+                    $('#result').text(data.result);
+                    $('#result2').text(data.result2);
+                    $('#result3').text(data.result3);
+                    $('#result4').text(data.result4);
+                    $('#result5').text(data.result5);
+                    $('#result6').text(data.result6);
+                    $('#result7').text(data.result7);
+                    $('#result8').text(data.result8);
+                    $('#result9').text(data.result9);
+                    $('#result10').text(data.result10);
+                    console.log(data)
+                  });
+                  
+                };
+               
+                
+                
+                function stopTextColor() {
+                  clearInterval(intervalID);
+                }
+          
+          </script>
+
+    </head>
+    <body onload="update_values();">
+
+
+
+
+
+        <div class="container">
+            <div class="header">
+              <image class="logo" src ="{{ url_for('static',filename='images/Logo.png') }}">
+            </div>
+            <div class="parameters custom-scrollbar-css p-2">
+              
+             
+            
+            <h2>SOH Graph</h2>
+            <canvas class="chart-design" id="myChart1" width="300" height="300"></canvas>
+            <h2>Discharge History</h2>
+            <canvas class="chart-design" id="myChart2" width="300" height="300"></canvas>
+            <h2>Current History</h2>
+            <canvas class="chart-design" id="myChart3" width="300" height="300"></canvas>
+          </div>
+  <script>
+    // Get the context of the canvas element we want to select
+    var ctx_1 = document.getElementById("myChart1").getContext("2d");
+    var ctx_2 = document.getElementById("myChart2").getContext("2d");
+    var ctx_3 = document.getElementById("myChart3").getContext("2d");
+
+    var weeks = {{dates|safe}};
+    var soh_data = {{soh_list|safe}};
+    var soc_data = {{soc_list|safe}};
+    var current_data = {{current_list|safe}};
+
+    var data_1 = {
+        labels: weeks,
+        datasets: [
+            {
+                label: "My First dataset",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: soh_data
+            }
+        ]
+    };
+
+    var data_2 = {
+        labels: weeks,
+        datasets: [
+            {
+                label: "My First dataset",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: soc_data
+            }
+        ]
+    };
+
+
+    var data_3 = {
+        labels: weeks,
+        datasets: [
+            {
+                label: "My First dataset",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: current_data
+            }
+        ]
+    };
+    var myLineChart_1 = new Chart(ctx_1).Line(data_1);
+    var myLineChart_2 = new Chart(ctx_2).Line(data_2);
+    var myLineChart_3 = new Chart(ctx_3).Line(data_3);
+  </script>
+  
+
+            <div class="navigation">
+
+              <form action="/{{ username }}/dashboarddirect" method="post">
+                <div class="navigation">
+                  <button  type="submit" class="home-icon">
+                    <image class="home-icon" src ="{{ url_for('static',filename='images/home_icon.svg') }}">
+                  </button>
+              </form>
+                
+              <form action="/{{ username }}/settingsdirect" method="post">
+                <button  class="settings-icon" type="submit">
+                  <image class="settings-icon" src ="{{ url_for('static',filename='images/settings_icon.svg') }}"> 
+                  </button>
+              </form>
+                  
+              <form action="/{{ username }}/chartdirect" method="post">
+                  <button  class="chart-icon" type="submit">
+                    <image class="chart-icon" src ="{{ url_for('static',filename='images/chart_icon.svg') }}">
+                  </button>
+              </form>
+              
+            </div>
+        </div>
+
+        <script>
+            document.getElementById("result").innerHTML;
+            document.getElementById("result2").innerHTML;
+            document.getElementById("result3").innerHTML;
+            document.getElementById("result4").innerHTML;
+            document.getElementById("result5").innerHTML;
+            document.getElementById("result6").innerHTML;
+            document.getElementById("result7").innerHTML;
+            document.getElementById("result8").innerHTML;
+            document.getElementById("result9").innerHTML;
+            document.getElementById("result10").innerHTML;
+        </script>
+
+    </body>
+</html>

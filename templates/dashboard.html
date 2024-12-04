@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Bootstrap CSS -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+        <link href="{{ url_for('static',filename='css/dashboard.css') }}" rel="stylesheet" />
+
+        <title>E-ndicator</title>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script type="text/javascript">
+        var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+
+        </script>
+
+
+        <script type="text/javascript">
+            var intervalID = setInterval(update_values,1000);
+              function update_values() {
+                    $.getJSON($SCRIPT_ROOT + '/{{ username }}/dashboard/data',
+
+                  function(data) {
+                    $('#result').text(data.result);
+                    $('#result2').text(data.result2);
+                    $('#result3').text(data.result3);
+                    $('#result4').text(data.result4);
+                    $('#result5').text(data.result5);
+                    $('#result6').text(data.result6);
+                    $('#result7').text(data.result7);
+                    $('#result8').text(data.result8);
+                    $('#result9').text(data.result9);
+                    $('#result10').text(data.result10);
+                    $('#result11').text(data.result11);
+                    console.log(data)
+                  });
+
+                };
+
+
+
+                function stopTextColor() {
+                  clearInterval(intervalID);
+                }
+
+          </script>
+
+    </head>
+    <body onload="update_values();">
+
+
+
+
+
+        <div class="container">
+            <div class="header">
+              <image class="logo" src ="{{ url_for('static',filename='images/Logo.png') }}">
+            </div>
+            <div class="parameters custom-scrollbar-css p-2">
+
+              <div class="vbox-1">
+                <p class="label-1">VOLTAGE:</p>
+                <p class="value-1">V</p>
+                <p class="value-1" id="result">0</p>
+
+              </div>
+
+              <div class="vbox-2">
+                <p class="label-2">CURRENT:</p>
+                <p class="value-2">A</p>
+                <p class="value-2" id="result2">0</p>
+
+
+              </div>
+
+              <div class="vbox-1">
+                <p class="label-1">STATE OF HEALTH:</p>
+                <p class="value-1">%</p>
+                <p class="value-1" id="result3">0</p>
+
+              </div>
+
+              <div class="vbox-2">
+                <p class="label-2">STATE OF CHARGE:</p>
+                <p class="value-2">%</p>
+                <p class="value-2" id="result4">0</p>
+
+              </div>
+
+              <div class="vbox-1">
+                <p class="label-1">INTL. RESISTANCE:</p>
+                <p class="value-1">Ω</p>
+                <p class="value-1" id="result5">0</p>
+
+              </div>
+
+              <div class="vbox-2">
+                <p class="label-2">CAPACITY:</p>
+                <p class="value-2">Ah</p>
+                <p class="value-2" id="result6">0</p>
+
+              </div>
+
+              <div class="vbox-1">
+                <p class="label-1">DOD:   </p>
+                <p class="value-1">%</p>
+                <p class="value-1" id="result7">0</p>
+
+              </div>
+
+
+              <div class="vbox-2">
+                <p class="label-2">BRAND:</p>
+                <p class="value-2" id="result8">0</p>
+
+              </div>
+
+
+              <div class="vbox-1">
+                <p class="label-1">NO LOAD VOLTAGE:</p>
+                <p class="value-1">V</p>
+                <p class="value-1" id="result9">0</p>
+
+              </div>
+
+              <div class="vbox-2">
+                <p class="label-2">NUMBER OF CYCLE:</p>
+                <p class="value-2"></p>
+                <p class="value-2" id="result10">0</p>
+              </div>
+
+            <div class="vbox-1">
+                <p class="label-1">STATUS:</p>
+                <p class="value-1"></p>
+                <p class="value-1" id="result11">-</p>
+              </div>
+
+            </div>
+
+            <div class="navigation">
+
+              <form action="/{{ username }}/dashboarddirect" method="post">
+                <div class="navigation">
+                  <button  type="submit" class="home-icon">
+                    <image class="home-icon" src ="{{ url_for('static',filename='images/home_icon.svg') }}">
+                  </button>
+              </form>
+
+              <form action="/{{ username }}/settingsdirect" method="post">
+                <button  class="settings-icon" type="submit">
+                  <image class="settings-icon" src ="{{ url_for('static',filename='images/settings_icon.svg') }}">
+                  </button>
+              </form>
+
+              <form action="/{{ username }}/chartdirect" method="post">
+                  <button  class="chart-icon" type="submit">
+                    <image class="chart-icon" src ="{{ url_for('static',filename='images/chart_icon.svg') }}">
+                  </button>
+              </form>
+
+            </div>
+        </div>
+
+        <script>
+            document.getElementById("result").innerHTML;
+            document.getElementById("result2").innerHTML;
+            document.getElementById("result3").innerHTML;
+            document.getElementById("result4").innerHTML;
+            document.getElementById("result5").innerHTML;
+            document.getElementById("result6").innerHTML;
+            document.getElementById("result7").innerHTML;
+            document.getElementById("result8").innerHTML;
+            document.getElementById("result9").innerHTML;
+            document.getElementById("result10").innerHTML;
+            document.getElementById("result11").innerHTML;
+        </script>
+
+    </body>
+</html>
